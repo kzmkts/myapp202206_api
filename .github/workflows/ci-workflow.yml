@@ -1,8 +1,5 @@
-name: Test and Deploy
-on: 
-  push:
-    branches:    
-      - main
+name: CI
+on: [push]
 env:
   SLACK_WEBHOOK: ${{secrets.SLACK_WEBHOOK}}
 
@@ -54,20 +51,21 @@ jobs:
           SLACK_TITLE: Canceled tests
           SLACK_COLOR: danger
 
-  cd:
-    needs: ci
-    name: Deploy to Heorku
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
 
-      - name: Deploy
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
-          usedocker: true
+  # cd:
+  #   needs: ci
+  #   name: Deploy to Heorku
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 10
+    
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - name: Deploy
+  #       uses: akhileshns/heroku-deploy@v3.12.12
+  #       with:
+  #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+  #         heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+  #         heroku_email: ${{secrets.HEROKU_EMAIL}}
+  #         usedocker: true
