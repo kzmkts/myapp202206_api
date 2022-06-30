@@ -25,7 +25,7 @@ async def get_tasks_with_done(db: AsyncSession) -> List[Tuple[int, str, bool]]:
                 task_model.Task.title,
                 task_model.Task.created_at,
                 task_model.Done.id.isnot(None).label("done"),
-            ).outerjoin(task_model.Done)
+            ).outerjoin(task_model.Done).limit(10)
         )
     )
     return result.all()
